@@ -1,0 +1,70 @@
+@import "src/styles/variables";
+
+table {
+  cursor: default;
+
+  tr {
+    &:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.record-book {
+  .row-data {
+    display: flex;
+    flex-direction: column;
+  }
+  .subject-name {
+    font-size: 16px;
+    font-weight: 500;
+
+    + div {
+      color: $black50;
+      font-size: 12px;
+
+      .cathedra {
+        margin-left: 8px;
+        background: $black10;
+        border-radius: 5px;
+        padding: 0 5px;
+        letter-spacing: 0.75px;
+      }
+    }
+  }
+
+  .e-c {
+    line-height: 1.2;
+    font-size: 13px;
+  }
+
+  .empty-table {
+    margin-top: 24px;
+
+    .icon-big {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+  }
+}
+
+.dark-theme {
+  .record-book {
+    .subject-name {
+      + div {
+        color: $white50;
+
+        .cathedra {
+          background: $white10;
+        }
+      }
+    }
+  }
+}

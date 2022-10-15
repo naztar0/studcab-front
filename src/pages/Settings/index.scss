@@ -1,0 +1,23 @@
+@import "src/styles/variables";
+
+table {
+  tr {
+    .icon {
+      margin-right: 5px;
+    }
+
+    &:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.select {
+  width: 100%;
+}
+
+.dark-theme {
+
+}

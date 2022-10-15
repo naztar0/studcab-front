@@ -1,0 +1,15 @@
+@import "variables";
+
+$primary-color: $blue-light;
+$link-color: $blue-light;
+$layout-header-background: $bg-substrate-dark;
+$menu-icon-margin-right: 14px;
+$border-radius-base: 5px;
+
+.ant-table {
+  background: none !important;
+}
+
+.dark-theme {
+  @import "antd.dark";
+}

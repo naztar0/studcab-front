@@ -1,0 +1,42 @@
+@import "src/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: $bg-root-light;
+  color: $text-dark;
+  margin-left: 250px;
+  margin-top: $header-height;
+  min-height: calc(100vh - $header-height) !important;
+
+  h2 {
+    color: $text-dark;
+  }
+
+  @media (max-width: 991px) {
+    margin-left: 0;
+  }
+}
+
+.substrate {
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  background: $bg-substrate-light;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.dark-theme {
+  .container {
+    background: $bg-root-dark;
+    color: $text-light;
+  }
+
+  .substrate {
+      background: $bg-substrate-dark;
+  }
+}
