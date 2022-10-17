@@ -1,10 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { colorChar, utfChar } from '@/helpers/utils';
 import defaultAvatar from '@/assets/images/default_avatar.jpg';
+import { Theme } from '@/constants/settings';
 
 export default function Avatar({
-  avatar, size, username, rounded, units, align,
+  avatar, size, username, rounded, units, align, mono,
 }: TAvatar) {
+  const theme: Theme = useSelector((state: any) => state.themeReducer.theme);
+
+  const monoColor = theme === Theme.Dark ? '#404040' : '#828282';
+
   let style = {};
   if (size) {
     style = {
@@ -15,16 +21,18 @@ export default function Avatar({
     style = { ...style, borderRadius: '999px' };
   }
   if (avatar) {
-    return <img src={`${process.env.REACT_APP_API_URL}/storage/images/${avatar}`} alt="avatar" style={style} />;
+    return <img src={`${import.meta.env.REACT_APP_API_URL}/storage/images/${avatar}`} alt="avatar" style={style} />;
   }
   if (username) {
     return (
       <div style={{
-        ...style, textAlign: 'center', backgroundColor: colorChar(username),
+        ...style, textAlign: 'center', backgroundColor: mono ? monoColor : colorChar(username),
       }}
       >
         <span
-          style={{ fontSize: `${(size * 2) / 3}${units}`, lineHeight: `${size * 0.9}${units}`, userSelect: 'none' }}
+          style={{
+            fontSize: `${(size * 2) / 3}${units}`, lineHeight: `${size * 1.025}${units}`, userSelect: 'none', color: 'white',
+          }}
           className="avatar-username"
         >
           {utfChar(username)}
@@ -42,6 +50,7 @@ type TAvatar = {
   rounded?: boolean,
   units?: string,
   align?: string
+  mono?: boolean
 };
 
 Avatar.defaultProps = {
@@ -50,4 +59,5 @@ Avatar.defaultProps = {
   rounded: true,
   units: 'px',
   align: 'center',
+  mono: false,
 };

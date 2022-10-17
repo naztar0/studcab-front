@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import * as Icons from '@ant-design/icons';
 import {
   Badge, Button, Input, Popover, List,
@@ -42,6 +43,8 @@ const notifications = unreadNotificationsCount > notificationsLimit
   : notificationsData.slice(0, notificationsLimit);
 
 export default function Navbar() {
+  const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
+
   const [openNotifications, setOpenNotifications] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
 
@@ -95,7 +98,7 @@ export default function Navbar() {
           onOpenChange={(value) => setOpenProfile(value)}
         />
         <button type="button" className="avatar" onClick={() => setOpenProfile(true)}>
-          <Avatar size={36} />
+          <Avatar size={36} avatar={profileData?.image} username={profileData?.first_name} mono />
         </button>
       </div>
     </header>
