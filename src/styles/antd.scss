@@ -9,6 +9,12 @@ $border-radius-base: 5px;
 .ant-table {
   background: none !important;
 }
+.ant-table-title {
+  padding: 0 !important;
+}
+.ant-table-thead {
+  user-select: none;
+}
 
 .dark-theme {
   @import "antd.dark";
