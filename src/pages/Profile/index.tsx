@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Skeleton, Button, Upload, UploadProps, message,
 } from 'antd';
@@ -6,16 +7,20 @@ import { Helmet } from 'react-helmet';
 import * as Icons from '@ant-design/icons';
 import Layout from '@/components/Layout';
 import Avatar from '@/components/Avatar';
+import { AppDispatch } from '@/store/store';
+import { getUserProfile } from '@/store/actions/users';
+import { yearToSemester } from '@/helpers/utils';
 import defaultCover from '@/assets/images/default_cover.jpg';
 import './index.scss';
 
 export default function Profile() {
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading: boolean = useSelector((state: any) => state.profileReducer.isLoading);
+  const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
   const [fileUploading, setFileUploading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000);
-    // setLoading(false);
+    dispatch(getUserProfile({ user: 1 }));
   }, []);
 
   const profileRowTitles = [
@@ -25,12 +30,13 @@ export default function Profile() {
     ['Form of study', <Icons.EyeOutlined className="icon" />],
     ['Payment form', <Icons.DollarOutlined className="icon" />],
   ];
-  const profileRowValues = [
-    '4 • 7',
-    'КН-919д',
-    'Bachelor',
-    'Full-time',
-    'Budget',
+
+  const profileRowValues = !profileData ? [] : [
+    `${profileData.year} • ${yearToSemester(profileData.year)}`,
+    profileData.group.name,
+    profileData.train_level,
+    profileData.train_form,
+    profileData.payment,
   ];
 
   const profileColTitles = [
@@ -40,12 +46,13 @@ export default function Profile() {
     'Cathedra',
     'Specialization',
   ];
-  const profileColValues = [
-    'Computer Science',
-    'Computer Science',
-    'Computer Science',
-    'Computer Science',
-    'Computer Science',
+
+  const profileColValues = !profileData ? [] : [
+    profileData.faculty.name,
+    profileData.speciality.name,
+    profileData.program.name,
+    profileData.cathedra.name,
+    profileData.specialization.name,
   ];
 
   const props: UploadProps = {
@@ -69,7 +76,7 @@ export default function Profile() {
       <Helmet title="Profile" />
       <div className="substrate pd-0">
         <div className="cover">
-          {!loading ? (
+          {!isLoading ? (
             <img src={defaultCover} alt="cover" />
           ) : (
             <Skeleton.Input active className="skeleton" />
@@ -80,17 +87,22 @@ export default function Profile() {
         </div>
         <div className="basic">
           <div className="profile-avatar">
-            {!loading ? (
-              <Avatar size={160} />
+            {!isLoading ? (
+              <Avatar
+                size={160}
+                avatar={profileData.image}
+                username={profileData.first_name}
+                mono
+              />
             ) : (
               <Skeleton.Avatar size={160} active />
             )}
           </div>
           <div className="info">
-            {!loading ? (
+            {!isLoading ? (
               <>
-                <span className="name">Nazar Taran</span>
-                <a className="email" href="mailto:">nazar.taran.id@gmail.com</a>
+                <span className="name">{`${profileData.last_name} ${profileData.first_name} ${profileData.middle_name}`}</span>
+                <a className="email" href="mailto:">{profileData.email}</a>
               </>
             ) : (
               <Skeleton paragraph={{ rows: 1 }} style={{ width: '250px' }} active />
@@ -102,7 +114,7 @@ export default function Profile() {
         <div className="profile-section col">
           {profileRowTitles.map((title, index) => (
             <div className="item" key={title[0] as string}>
-              {!loading ? (
+              {!isLoading ? (
                 <div>
                   <div className="label">
                     {title[1]}
@@ -118,7 +130,7 @@ export default function Profile() {
         </div>
         <div className="profile-section row">
           {profileColTitles.map((title, index) => (
-            !loading ? (
+            !isLoading ? (
               <div className="item" key={title}>
                 <div>
                   <div className="title">
