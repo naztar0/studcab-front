@@ -53,6 +53,41 @@ table {
       margin-top: 10px;
     }
   }
+
+  .table-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5px;
+
+    .semester {
+      font-size: 14px;
+      font-weight: 500;
+
+      .select {
+        width: min-content;
+        word-spacing: 5px;
+      }
+    }
+  }
+}
+
+.semester-option {
+  word-spacing: 5px;
+}
+
+.debts {
+  border: 2px solid $yellow-light;
+
+  .table-title {
+    justify-content: start;
+  }
+
+  .icon {
+    color: $yellow-light;
+    margin-right: 10px;
+  }
 }
 
 .dark-theme {

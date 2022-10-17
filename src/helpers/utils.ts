@@ -12,3 +12,7 @@ export function colorChar(s: string, saturation = 50, level = 48) {
   lt = utfChar(lt);
   return `hsl(${((lt.charCodeAt(0) - 65) * 360) / 26}deg, ${saturation}%, ${level}%)`;
 }
+
+export function yearToSemester(year: number) {
+  return year * 2 - (new Date().getMonth() > 8 ? 1 : 0);
+}

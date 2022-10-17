@@ -73,3 +73,20 @@ interface RecordBook {
   control: string;
   debt: string;
 }
+
+interface Debt {
+  subject: {
+    id: number;
+    name: string;
+  };
+  professor: string;
+  cathedra: {
+    full: string;
+    short: string;
+  };
+  individual_task: string;
+  semester: number;
+  credit: string;
+  control: string;
+  date: string;
+}
