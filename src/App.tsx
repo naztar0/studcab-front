@@ -6,6 +6,8 @@ import { setupStore } from '@/store/store';
 import AppInit from '@/components/AppInit';
 import Profile from '@/pages/Profile';
 import RecordBook from '@/pages/RecordBook';
+import Rating from '@/pages/Rating';
+import Syllabus from '@/pages/Syllabus';
 import Settings from '@/pages/Settings';
 import './styles/global.scss';
 import './styles/antd.scss';
@@ -22,6 +24,8 @@ function App() {
           {/* <Route path={'/login'} first element={<Login/>}/> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/record-book" element={<RecordBook />} />
+          <Route path="/rating" element={<Rating />} />
+          <Route path="/syllabus" element={<Syllabus />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
