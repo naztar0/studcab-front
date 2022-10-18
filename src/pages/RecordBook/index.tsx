@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Tooltip, Select } from 'antd';
+import { Table, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Helmet } from 'react-helmet';
 import * as Icons from '@ant-design/icons';
 import { AppDispatch } from '@/store/store';
 import Layout from '@/components/Layout';
+import Semester from '@/components/Semester';
 import { getUserRecordBook } from '@/store/actions/users';
 import { yearToSemester } from '@/helpers/utils';
 import './index.scss';
 
 export default function RecordBook() {
   const dispatch = useDispatch<AppDispatch>();
+  const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
   const isLoading: boolean = useSelector((state: any) => state.recordBookReducer.isLoading);
   const recordBookData: { record_book: RecordBook[], debts: Debt[] } = useSelector(
     (state: any) => state.recordBookReducer.recordBook,
   );
-  const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
 
-  const [semester, setSemester] = useState(yearToSemester(profileData?.year ?? 1) - 1);
+  const [semester, setSemester] = useState(yearToSemester(profileData?.year ?? 0, true) || 1);
 
   useEffect(() => {
     dispatch(getUserRecordBook({ user: 1, semester }));
@@ -33,7 +34,7 @@ export default function RecordBook() {
         <div className="row-data">
           <span className="subject-name">{record.subject.name}</span>
           <div>
-            <span>{record.professor}</span>
+            <span className="professor">{record.professor}</span>
             <Tooltip title={record.cathedra.full} placement="right">
               <span className="cathedra">{record.cathedra.short}</span>
             </Tooltip>
@@ -107,7 +108,7 @@ export default function RecordBook() {
         <div className="row-data">
           <span className="subject-name">{record.subject.name}</span>
           <div>
-            <span>{record.professor}</span>
+            <span className="professor">{record.professor}</span>
             <Tooltip title={record.cathedra.full} placement="right">
               <span className="cathedra">{record.cathedra.short}</span>
             </Tooltip>
@@ -163,13 +164,7 @@ export default function RecordBook() {
   const rbTableTitle = () => (
     <div className="table-title">
       <span className="title">Record Book</span>
-      <div className="semester">
-        <Select defaultValue={semester} onChange={(value) => setSemester(value)} className="select">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
-            <Select.Option key={item} value={item} className="semester-option">{`${'Semester'} ${item}`}</Select.Option>
-          ))}
-        </Select>
-      </div>
+      <Semester semester={semester} setSemester={setSemester} />
     </div>
   );
 
@@ -183,11 +178,12 @@ export default function RecordBook() {
   return (
     <Layout>
       <Helmet title="Record Book" />
-      <div className="substrate record-book">
+      <div className="substrate subject-table">
         <Table
           columns={rbColumns}
           dataSource={rbDataSource}
           pagination={false}
+          showSorterTooltip={false}
           loading={isLoading}
           locale={{
             emptyText: (
@@ -200,11 +196,12 @@ export default function RecordBook() {
           title={rbTableTitle}
         />
       </div>
-      <div className="substrate record-book debts">
+      <div className="substrate subject-table debts">
         <Table
           columns={debtsColumns}
           dataSource={debtsDataSource}
           pagination={false}
+          showSorterTooltip={false}
           loading={isLoading}
           locale={{
             emptyText: (
