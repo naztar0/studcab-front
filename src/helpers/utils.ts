@@ -13,6 +13,11 @@ export function colorChar(s: string, saturation = 50, level = 48) {
   return `hsl(${((lt.charCodeAt(0) - 65) * 360) / 26}deg, ${saturation}%, ${level}%)`;
 }
 
-export function yearToSemester(year: number) {
-  return year * 2 - (new Date().getMonth() > 8 ? 1 : 0);
+export function yearToSemester(year: number, prev = false): number {
+  return year ? year * 2 - (new Date().getMonth() > 8 ? 1 : 0)
+    - (prev && yearToSemester(year) > 1 ? 1 : 0) : 0;
+}
+
+export function calculationFormat(s: string) {
+  return s.replace(/\*/g, ' × ').replace(/\[/g, '(').replace(/]/g, ')');
 }
