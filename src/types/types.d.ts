@@ -90,3 +90,31 @@ interface Debt {
   control: string;
   date: string;
 }
+
+interface Rating {
+  student: {
+    id: number;
+    name: string;
+  };
+  group: string;
+  position: number;
+  mark_5: number;
+  mark_100: number;
+  calculation: string;
+}
+
+interface Syllabus {
+  subject: {
+    id: number;
+    name: string;
+  };
+  cathedra: {
+    full: string;
+    short: string;
+  };
+  individual_task: string;
+  semester: number;
+  credit: string;
+  control: string;
+  hours: number;
+}

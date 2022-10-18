@@ -4,12 +4,16 @@ import themeReducer from '@/store/reducers/theme';
 import languageReducer from '@/store/reducers/language';
 import profileReducer from '@/store/reducers/profile';
 import recordBookReducer from '@/store/reducers/recordBook';
+import ratingReducer from '@/store/reducers/rating';
+import syllabusReducer from '@/store/reducers/syllabus';
 
 const rootReducer = combineReducers({
   themeReducer,
   languageReducer,
   profileReducer,
   recordBookReducer,
+  ratingReducer,
+  syllabusReducer,
 });
 
 // eslint-disable-next-line import/prefer-default-export

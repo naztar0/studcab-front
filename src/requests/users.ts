@@ -9,3 +9,13 @@ export const fetchUserRecordBook = async (user: number, semester: number) => axi
   method: 'get',
   url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/record-book/${semester}`,
 });
+
+export const fetchUserRating = async (user: number, semester: number) => axios({
+  method: 'get',
+  url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/rating/${semester}`,
+});
+
+export const fetchUserSyllabus = async (user: number, semester: number) => axios({
+  method: 'get',
+  url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/syllabus/${semester}`,
+});
