@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Skeleton, Button, Upload, UploadProps, message,
 } from 'antd';
@@ -7,21 +7,14 @@ import { Helmet } from 'react-helmet';
 import * as Icons from '@ant-design/icons';
 import Layout from '@/components/Layout';
 import Avatar from '@/components/Avatar';
-import { AppDispatch } from '@/store/store';
-import { getUserProfile } from '@/store/actions/users';
 import { yearToSemester } from '@/helpers/utils';
 import defaultCover from '@/assets/images/default_cover.jpg';
 import './index.scss';
 
 export default function Profile() {
-  const dispatch = useDispatch<AppDispatch>();
   const isLoading: boolean = useSelector((state: any) => state.profileReducer.isLoading);
   const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
   const [fileUploading, setFileUploading] = useState(false);
-
-  useEffect(() => {
-    dispatch(getUserProfile({ user: 1 }));
-  }, []);
 
   const profileRowTitles = [
     ['Year • Semester', <Icons.CalendarOutlined className="icon" />],
@@ -60,7 +53,7 @@ export default function Profile() {
     beforeUpload: (file) => {
       const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
       if (!isImage) {
-        message.error(`${file.name} is not an image file`).then((r) => r);
+        message.error(`${file.name} is not an image file`).then();
       }
       return isImage || Upload.LIST_IGNORE;
     },
