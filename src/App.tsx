@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { setupStore } from '@/store/store';
 import AppInit from '@/components/AppInit';
+import Login from '@/pages/Login';
 import Profile from '@/pages/Profile';
 import RecordBook from '@/pages/RecordBook';
 import Rating from '@/pages/Rating';
@@ -20,8 +21,7 @@ function App() {
         <AppInit />
         <Helmet defaultTitle="NeoCab" titleTemplate="%s ∣ NeoCab" />
         <Routes>
-          {/* <Route path='/' exact element={<Home/>}/> */}
-          {/* <Route path={'/login'} first element={<Login/>}/> */}
+          <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/record-book" element={<RecordBook />} />
           <Route path="/rating" element={<Rating />} />

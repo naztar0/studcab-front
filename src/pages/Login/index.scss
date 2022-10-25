@@ -1,0 +1,48 @@
+@import "src/styles/variables";
+
+.login-page {
+  background: $bg-root-light;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .substrate {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid $black10;
+
+    form {
+      width: 100%;
+    }
+
+    > span {
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    button.ms-login {
+      background: none;
+      border: none;
+      margin: 0;
+      padding: 0;
+      width: fit-content;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.dark-theme {
+  .login-page {
+    background: $bg-root-dark;
+    .substrate {
+      border: 2px solid $white10;
+    }
+  }
+}
