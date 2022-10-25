@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Icons from '@ant-design/icons';
 import {
   Badge, Button, Input, Popover, List,
 } from 'antd';
 import Avatar from '@/components/Avatar';
 import logo from '@/assets/images/logo.jpg';
+import { logoutAction } from '@/store/actions/login';
+import { AppDispatch } from '@/store/store';
 import './index.scss';
 
 const notificationsData = [
@@ -43,10 +46,25 @@ const notifications = unreadNotificationsCount > notificationsLimit
   : notificationsData.slice(0, notificationsLimit);
 
 export default function Navbar() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
+  const isLoginLoading = useSelector((state: any) => state.loginReducer.isLoading);
 
   const [openNotifications, setOpenNotifications] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+
+  const logout = () => {
+    dispatch(logoutAction());
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('token');
+  };
+
+  useEffect(() => {
+    if (!isLoginLoading && !localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, [isLoginLoading]);
 
   return (
     <header>
@@ -89,7 +107,7 @@ export default function Navbar() {
           />
         </Badge>
         <Popover
-          content={<Button>Logout</Button>}
+          content={<Button onClick={logout} loading={isLoginLoading}>Logout</Button>}
           placement="bottomRight"
           title="Profile"
           trigger="click"
