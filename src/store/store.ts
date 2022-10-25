@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from '@/store/reducers/theme';
 import languageReducer from '@/store/reducers/language';
+import loginReducer from '@/store/reducers/login';
 import profileReducer from '@/store/reducers/profile';
 import recordBookReducer from '@/store/reducers/recordBook';
 import ratingReducer from '@/store/reducers/rating';
@@ -10,6 +11,7 @@ import syllabusReducer from '@/store/reducers/syllabus';
 const rootReducer = combineReducers({
   themeReducer,
   languageReducer,
+  loginReducer,
   profileReducer,
   recordBookReducer,
   ratingReducer,
