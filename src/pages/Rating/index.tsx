@@ -59,7 +59,6 @@ export default function Rating() {
       title: 'Student',
       render: (value, record) => {
         const percent = (record.position * 100) / ratingData.length;
-        // eslint-disable-next-line no-nested-ternary
         const probability = percent > 50 ? '0%' : (percent > 45 ? 'висока' : '100%');
         return (
           <Tooltip
