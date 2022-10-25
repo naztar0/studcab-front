@@ -70,7 +70,7 @@ export default function Settings() {
           className="select"
           defaultValue={selected}
           onChange={(text) => {
-            message.success(`Selected ${text}`).then((r) => r);
+            message.success(`Selected ${text}`).then();
             let value;
             switch (title.text.toLowerCase()) {
               case 'language':
