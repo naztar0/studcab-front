@@ -7,6 +7,7 @@ import profileReducer from '@/store/reducers/profile';
 import recordBookReducer from '@/store/reducers/recordBook';
 import ratingReducer from '@/store/reducers/rating';
 import syllabusReducer from '@/store/reducers/syllabus';
+import coverReducer from '@/store/reducers/cover';
 
 const rootReducer = combineReducers({
   themeReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   recordBookReducer,
   ratingReducer,
   syllabusReducer,
+  coverReducer,
 });
 
 // eslint-disable-next-line import/prefer-default-export
