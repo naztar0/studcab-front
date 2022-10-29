@@ -96,7 +96,7 @@ export default function Profile() {
             {!isLoading ? (
               <>
                 <span className="name">{`${profileData.last_name} ${profileData.first_name} ${profileData.middle_name}`}</span>
-                <a className="email" href="mailto:">{profileData.email}</a>
+                <a className="email" href={`mailto:${profileData.email}`}>{profileData.email}</a>
               </>
             ) : (
               <Skeleton paragraph={{ rows: 1 }} style={{ width: '250px' }} active />
