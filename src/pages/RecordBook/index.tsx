@@ -22,7 +22,7 @@ export default function RecordBook() {
   const [semester, setSemester] = useState(yearToSemester(profileData?.year ?? 0, true) || 1);
 
   useEffect(() => {
-    dispatch(getUserRecordBook({ user: 1, semester }));
+    dispatch(getUserRecordBook({ user: profileData.id, semester }));
   }, [semester]);
 
   const rbColumns: ColumnsType<RecordBook> = isLoading ? [] : [

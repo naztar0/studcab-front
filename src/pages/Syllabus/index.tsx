@@ -22,7 +22,7 @@ export default function Rating() {
   const [semester, setSemester] = useState(yearToSemester(profileData?.year ?? 0, true) || 1);
 
   useEffect(() => {
-    dispatch(getUserSyllabus({ user: 1, semester }));
+    dispatch(getUserSyllabus({ user: profileData.id, semester }));
   }, [semester]);
 
   Chart.register(ArcElement, ChartTooltip);

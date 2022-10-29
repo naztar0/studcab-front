@@ -21,7 +21,7 @@ export default function Rating() {
   const [semester, setSemester] = useState(yearToSemester(profileData?.year ?? 0, true) || 1);
 
   useEffect(() => {
-    dispatch(getUserRating({ user: 1, semester }));
+    dispatch(getUserRating({ user: profileData.id, semester }));
   }, [semester]);
 
   useEffect(() => {
