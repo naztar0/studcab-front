@@ -21,7 +21,13 @@ export default function Avatar({
     style = { ...style, borderRadius: '999px' };
   }
   if (avatar) {
-    return <img src={`${import.meta.env.REACT_APP_API_URL}/storage/images/${avatar}`} alt="avatar" style={style} />;
+    let src: string;
+    if (avatar.startsWith('data:image')) {
+      src = avatar;
+    } else {
+      src = import.meta.env.VITE_APP_IMAGES_URL + avatar;
+    }
+    return <img src={src} alt="avatar" style={style} />;
   }
   if (username) {
     return (
