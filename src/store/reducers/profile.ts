@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserProfile } from '@/store/actions/users';
+import { getUserProfile, getUserPhoto, setUserCover } from '@/store/actions/users';
 
 const initialState = {
   isLoading: true,
-  profile: null,
+  profile: <Profile | null>null,
+  image: <string | null>null,
 };
 
 export const profileSlice = createSlice({
@@ -17,6 +18,9 @@ export const profileSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUserProfile.fulfilled, (state, action) => {
       state.profile = action.payload;
+      if (state.profile && state.image) {
+        state.profile.image = state.image;
+      }
       state.isLoading = false;
     });
     builder.addCase(getUserProfile.rejected, (state) => {
@@ -24,6 +28,20 @@ export const profileSlice = createSlice({
     });
     builder.addCase(getUserProfile.pending, (state) => {
       state.isLoading = true;
+    });
+
+    builder.addCase(getUserPhoto.fulfilled, (state, action) => {
+      if (state.profile && (!state.profile.image || state.profile.image.startsWith('data:image'))) {
+        state.profile.image = action.payload;
+      } else {
+        state.image = action.payload;
+      }
+    });
+
+    builder.addCase(setUserCover.fulfilled, (state, action) => {
+      if (state.profile) {
+        state.profile.cover = action.payload.cover;
+      }
     });
   },
 });

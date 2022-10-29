@@ -1,15 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   fetchUserProfile,
+  fetchUserPhoto,
   fetchUserRecordBook,
   fetchUserRating,
   fetchUserSyllabus,
+  postUserCover,
 } from '@/requests/users';
 
 export const getUserProfile = createAsyncThunk(
   'get_user_profile',
   async ({ user }: { user: number }) => (
     await fetchUserProfile(user)
+  ).data,
+);
+
+export const getUserPhoto = createAsyncThunk(
+  'get_user_photo',
+  async ({ user }: { user: number }) => (
+    await fetchUserPhoto(user)
   ).data,
 );
 
@@ -31,5 +40,12 @@ export const getUserSyllabus = createAsyncThunk(
   'get_user_syllabus',
   async ({ user, semester }: { user: number, semester: number }) => (
     await fetchUserSyllabus(user, semester)
+  ).data,
+);
+
+export const setUserCover = createAsyncThunk(
+  'post_user_cover',
+  async ({ user, image }: { user: number, image: File }) => (
+    await postUserCover(user, image)
   ).data,
 );

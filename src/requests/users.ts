@@ -7,6 +7,13 @@ export const fetchUserProfile = async (user: number) => axios({
   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
 });
 
+export const fetchUserPhoto = async (user: number) => axios({
+  method: 'get',
+  url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/photo`,
+  withCredentials: true,
+  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+});
+
 export const fetchUserRecordBook = async (user: number, semester: number) => axios({
   method: 'get',
   url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/record-book/${semester}`,
@@ -27,3 +34,16 @@ export const fetchUserSyllabus = async (user: number, semester: number) => axios
   withCredentials: true,
   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
 });
+
+export const postUserCover = async (user: number, image: File) => {
+  const formData = new FormData();
+  formData.append('image', image);
+
+  return axios({
+    method: 'post',
+    data: formData,
+    url: `${import.meta.env.VITE_APP_API_URL}/api/users/${user}/cover`,
+    withCredentials: true,
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  });
+};
