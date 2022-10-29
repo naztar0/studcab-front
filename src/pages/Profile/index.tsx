@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Skeleton, Button, Upload, UploadProps, message,
 } from 'antd';
 import { Helmet } from 'react-helmet';
 import * as Icons from '@ant-design/icons';
+import { AppDispatch } from '@/store/store';
 import Layout from '@/components/Layout';
 import Avatar from '@/components/Avatar';
+import { setUserCover } from '@/store/actions/users';
 import { yearToSemester } from '@/helpers/utils';
 import defaultCover from '@/assets/images/default_cover.jpg';
 import './index.scss';
 
 export default function Profile() {
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading: boolean = useSelector((state: any) => state.profileReducer.isLoading);
   const profileData: Profile = useSelector((state: any) => state.profileReducer.profile);
-  const [fileUploading, setFileUploading] = useState(false);
+  const isLoadingCover: boolean = useSelector((state: any) => state.coverReducer.isLoading);
 
   const profileRowTitles = [
     ['Year • Semester', <Icons.CalendarOutlined className="icon" />],
@@ -57,10 +60,8 @@ export default function Profile() {
       }
       return isImage || Upload.LIST_IGNORE;
     },
-    onChange: (info) => {
-      if (info.file.status === 'uploading') {
-        setFileUploading(true);
-      }
+    customRequest: (options) => {
+      dispatch(setUserCover({ user: profileData.id, image: options.file as File }));
     },
   };
 
@@ -70,12 +71,12 @@ export default function Profile() {
       <div className="substrate pd-0">
         <div className="cover">
           {!isLoading ? (
-            <img src={defaultCover} alt="cover" />
+            <img src={profileData.cover ? import.meta.env.VITE_APP_IMAGES_URL + profileData.cover : defaultCover} alt="cover" />
           ) : (
             <Skeleton.Input active className="skeleton" />
           )}
           <Upload className="upload" {...props}>
-            <Button loading={fileUploading} disabled={fileUploading}>Edit cover</Button>
+            <Button loading={isLoadingCover} disabled={isLoadingCover}>Edit cover</Button>
           </Upload>
         </div>
         <div className="basic">
